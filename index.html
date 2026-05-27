@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Exam - Mathematics I (Video Solutions)</title>
+    <title>Interactive Final Exam - Mathematics I (Video Solutions)</title>
     
     <!-- MathJax for LaTeX rendering -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
@@ -50,7 +50,7 @@
         }
 
         .exam-header h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             background: linear-gradient(135deg, #f9d976, #f39f86);
             background-clip: text;
             -webkit-background-clip: text;
@@ -103,7 +103,70 @@
         }
 
         .question-text li {
-            margin-bottom: 12px;
+            margin-bottom: 25px;  /* increased to fit radio buttons and feedback */
+        }
+
+        .interactive-area {
+            margin-top: 10px;
+            margin-left: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .options {
+            display: flex;
+            gap: 20px;
+            background: rgba(0,0,0,0.3);
+            padding: 8px 15px;
+            border-radius: 40px;
+        }
+
+        .options label {
+            cursor: pointer;
+            font-weight: bold;
+            color: #cfead8;
+        }
+
+        .options input {
+            margin-right: 5px;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        .check-btn {
+            background: #2c4c3e;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .check-btn:hover {
+            background: #3e6b57;
+        }
+
+        .feedback {
+            margin-left: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .feedback.correct {
+            background: #2e7d64;
+            color: #c8f0e4;
+        }
+
+        .feedback.wrong {
+            background: #b33939;
+            color: #ffd6d6;
         }
 
         .question-meta {
@@ -148,6 +211,16 @@
             box-shadow: 0 6px 14px rgba(0,0,0,0.3);
         }
 
+        .highlight-video {
+            animation: pulse 0.6s ease-in-out 2;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); background: linear-gradient(95deg, #ff8c42, #ff3c00);}
+            50% { transform: scale(1.05); background: #ffaa66; box-shadow: 0 0 10px #ffaa66;}
+            100% { transform: scale(1); background: linear-gradient(95deg, #ff8c42, #ff3c00);}
+        }
+
         footer {
             text-align: center;
             padding: 20px;
@@ -157,7 +230,7 @@
             border-top: 1px solid #2a3e36;
         }
 
-        /* Modal styles */
+        /* Modal styles unchanged */
         .modal {
             display: none;
             position: fixed;
@@ -248,6 +321,10 @@
             .modal-content {
                 width: 95%;
             }
+            .options {
+                gap: 10px;
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
@@ -255,93 +332,188 @@
 
 <div class="exam-container">
     <div class="exam-header">
-        <h1> ................. Final Exam 1447 (S1) - Mathematics 101................. (Prepared by
-Dr. Wessam Gouda) </h1>
-        <p>Click on "Watch Solution" to see the step-by-step video explanation for each question.</p>
+        <h1>Final Exam 1447 (S1) - Mathematics 101</h1>
+        <p>Choose your answer for each MCQ, then click "Check". If wrong, watch the video solution.</p>
     </div>
 
     <div class="questions-grid">
 
-        <!-- ======================= Question 1 ======================= -->
+        <!-- ======================= Question 1 (Interactive MCQ) ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
                 <strong>Question 1: Choose the only correct answer from the following:</strong>
-                <ol>
-                    <li>The solution set of the inequality \( 4x + 3 < 11 \) is:
+                <ol id="mcq-list">
+                    <!-- سؤال 1 -->
+                    <li>
+                        The solution set of the inequality \( 4x + 3 < 11 \) is:
                         <ol type="A">
                             <li>\( x < 11 \)</li>
                             <li>\( (-\infty, 2) \)</li>
                             <li>\( [2, \infty) \)</li>
                             <li>\( x > 4 \)</li>
                         </ol>
+                        <div class="interactive-area" data-correct="B">
+                            <div class="options">
+                                <label><input type="radio" name="q1" value="A"> A</label>
+                                <label><input type="radio" name="q1" value="B"> B</label>
+                                <label><input type="radio" name="q1" value="C"> C</label>
+                                <label><input type="radio" name="q1" value="D"> D</label>
+                            </div>
+                            <button class="check-btn">Check Answer</button>
+                            <span class="feedback"></span>
+                        </div>
                     </li>
-                    <li>Given \( f(x) = 4x + 10 \) and \( g(x) = \sqrt{x+2} \), find \( a \) such that \( f(g(a)) = 10 \):
+                    <!-- سؤال 2 -->
+                    <li>
+                        Given \( f(x) = 4x + 10 \) and \( g(x) = \sqrt{x+2} \), find \( a \) such that \( f(g(a)) = 10 \):
                         <ol type="A">
                             <li>\( 8 \)</li>
                             <li>\( 4 \)</li>
                             <li>\( 0 \)</li>
                             <li>\( -2 \)</li>
                         </ol>
+                        <div class="interactive-area" data-correct="D">
+                            <div class="options">
+                                <label><input type="radio" name="q2" value="A"> A</label>
+                                <label><input type="radio" name="q2" value="B"> B</label>
+                                <label><input type="radio" name="q2" value="C"> C</label>
+                                <label><input type="radio" name="q2" value="D"> D</label>
+                            </div>
+                            <button class="check-btn">Check Answer</button>
+                            <span class="feedback"></span>
+                        </div>
                     </li>
-                    <li>Given \( \displaystyle \lim_{x\to1} \frac{ax^2+bx-5}{x-1}=7 \), the values of \( a,b \):
+                    <!-- سؤال 3 -->
+                    <li>
+                        Given \( \displaystyle \lim_{x\to1} \frac{ax^2+bx-5}{x-1}=7 \), the values of \( a,b \):
                         <ol type="A">
                             <li>\( a=1,b=6 \)</li>
                             <li>\( a=4,b=-2 \)</li>
                             <li>\( a=2,b=3 \)</li>
                             <li>\( a=7,b=0 \)</li>
                         </ol>
+                        <div class="interactive-area" data-correct="C">
+                            <div class="options">
+                                <label><input type="radio" name="q3" value="A"> A</label>
+                                <label><input type="radio" name="q3" value="B"> B</label>
+                                <label><input type="radio" name="q3" value="C"> C</label>
+                                <label><input type="radio" name="q3" value="D"> D</label>
+                            </div>
+                            <button class="check-btn">Check Answer</button>
+                            <span class="feedback"></span>
+                        </div>
                     </li>
-                    <li>If \( \sin(xy)=\frac12 \), then \( \frac{dx}{dy} = \):
+                    <!-- سؤال 4 -->
+                    <li>
+                        If \( \sin(xy)=\frac12 \), then \( \frac{dx}{dy} = \):
                         <ol type="A">
                             <li>\( -\frac{y}{x} \)</li>
                             <li>\( \frac{y}{x} \)</li>
                             <li>\( -\frac{x}{y} \)</li>
                             <li>\( \frac{x}{y} \)</li>
                         </ol>
+                        <div class="interactive-area" data-correct="C">
+                            <div class="options">
+                                <label><input type="radio" name="q4" value="A"> A</label>
+                                <label><input type="radio" name="q4" value="B"> B</label>
+                                <label><input type="radio" name="q4" value="C"> C</label>
+                                <label><input type="radio" name="q4" value="D"> D</label>
+                            </div>
+                            <button class="check-btn">Check Answer</button>
+                            <span class="feedback"></span>
+                        </div>
                     </li>
-                    <li>If \( y = -\frac{1}{2x} \), then \( y'' = \):
+                    <!-- سؤال 5 -->
+                    <li>
+                        If \( y = -\frac{1}{2x} \), then \( y'' = \):
                         <ol type="A">
                             <li>\( -\frac{1}{x^2} \)</li>
                             <li>\( \frac{1}{x^3} \)</li>
                             <li>\( \frac{1}{x^2} \)</li>
                             <li>\( -\frac{1}{x^3} \)</li>
                         </ol>
+                        <div class="interactive-area" data-correct="D">
+                            <div class="options">
+                                <label><input type="radio" name="q5" value="A"> A</label>
+                                <label><input type="radio" name="q5" value="B"> B</label>
+                                <label><input type="radio" name="q5" value="C"> C</label>
+                                <label><input type="radio" name="q5" value="D"> D</label>
+                            </div>
+                            <button class="check-btn">Check Answer</button>
+                            <span class="feedback"></span>
+                        </div>
                     </li>
-                    <li>Let \( f(x)=x^3-3x \). How many critical numbers?
+                    <!-- سؤال 6 -->
+                    <li>
+                        Let \( f(x)=x^3-3x \). How many critical numbers?
                         <ol type="A">
                             <li>\( -1 \)</li>
                             <li>\( 3 \)</li>
                             <li>\( 2 \)</li>
                             <li>\( 1 \)</li>
                         </ol>
+                        <div class="interactive-area" data-correct="C">
+                            <div class="options">
+                                <label><input type="radio" name="q6" value="A"> A</label>
+                                <label><input type="radio" name="q6" value="B"> B</label>
+                                <label><input type="radio" name="q6" value="C"> C</label>
+                                <label><input type="radio" name="q6" value="D"> D</label>
+                            </div>
+                            <button class="check-btn">Check Answer</button>
+                            <span class="feedback"></span>
+                        </div>
                     </li>
-                    <li>The absolute maximum of \( f(x)=x^2+2 \) on \( [-1,2] \) is:
+                    <!-- سؤال 7 -->
+                    <li>
+                        The absolute maximum of \( f(x)=x^2+2 \) on \( [-1,2] \) is:
                         <ol type="A">
                             <li>\( 6 \)</li>
                             <li>\( 2 \)</li>
                             <li>\( -3 \)</li>
                             <li>\( 4 \)</li>
                         </ol>
+                        <div class="interactive-area" data-correct="A">
+                            <div class="options">
+                                <label><input type="radio" name="q7" value="A"> A</label>
+                                <label><input type="radio" name="q7" value="B"> B</label>
+                                <label><input type="radio" name="q7" value="C"> C</label>
+                                <label><input type="radio" name="q7" value="D"> D</label>
+                            </div>
+                            <button class="check-btn">Check Answer</button>
+                            <span class="feedback"></span>
+                        </div>
                     </li>
-                    <li>If \( y = \sin^{-1}(2x) \), then \( \frac{dy}{dx} = \):
+                    <!-- سؤال 8 -->
+                    <li>
+                        If \( y = \sin^{-1}(2x) \), then \( \frac{dy}{dx} = \):
                         <ol type="A">
                             <li>\( \frac{1}{1+4x^2} \)</li>
                             <li>\( \frac{2}{\sqrt{1-4x^2}} \)</li>
                             <li>\( \frac{2}{1+4x^2} \)</li>
                             <li>\( \frac{1}{\sqrt{1-x^2}} \)</li>
                         </ol>
+                        <div class="interactive-area" data-correct="B">
+                            <div class="options">
+                                <label><input type="radio" name="q8" value="A"> A</label>
+                                <label><input type="radio" name="q8" value="B"> B</label>
+                                <label><input type="radio" name="q8" value="C"> C</label>
+                                <label><input type="radio" name="q8" value="D"> D</label>
+                            </div>
+                            <button class="check-btn">Check Answer</button>
+                            <span class="feedback"></span>
+                        </div>
                     </li>
                 </ol>
             </div>
             <div class="question-meta">
                 <span class="question-number">Multiple Choice Questions (1–8)</span>
                 <div>
-                    <button class="btn-solution" data-video="videos/q1.mp4">🎥 Watch Solution (Q1)</button>
+                    <button class="btn-solution" data-video="videos/q1.mp4">🎥 Watch Full Solutions (Q1)</button>
                 </div>
             </div>
         </div>
 
-        <!-- ======================= Question 2 ======================= -->
+        <!-- ======================= Question 2 (unchanged) ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
                 <strong>Question 2:</strong>
@@ -357,7 +529,7 @@ Dr. Wessam Gouda) </h1>
             </div>
         </div>
 
-        <!-- ======================= Question 3 ======================= -->
+        <!-- ======================= Question 3 (unchanged) ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
                 <strong>Question 3: Evaluate each of the following limits (if exist)</strong>
@@ -376,7 +548,7 @@ Dr. Wessam Gouda) </h1>
             </div>
         </div>
 
-        <!-- ======================= Question 4 ======================= -->
+        <!-- ======================= Question 4 (unchanged) ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
                 <strong>Question 4:</strong>
@@ -394,7 +566,7 @@ Dr. Wessam Gouda) </h1>
             </div>
         </div>
 
-        <!-- ======================= Question 5 ======================= -->
+        <!-- ======================= Question 5 (unchanged) ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
                 <strong>Question 5:</strong>
@@ -417,7 +589,7 @@ Dr. Wessam Gouda) </h1>
             </div>
         </div>
 
-        <!-- ======================= Question 6 ======================= -->
+        <!-- ======================= Question 6 (unchanged) ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
                 <strong>Question 6: For \( f(x) = \frac{x+1}{x+2} \) find the following:</strong>
@@ -441,11 +613,11 @@ Dr. Wessam Gouda) </h1>
     </div>
 
     <footer>
-        Prepared by Dr. Wessam Gouda &nbsp;|&nbsp; Click any button to view the video solution.
+        Prepared by Dr. Wessam Gouda &nbsp;|&nbsp; Click any button to view video solution.
     </footer>
 </div>
 
-<!-- Video Modal -->
+<!-- Video Modal (unchanged) -->
 <div id="videoModal" class="modal">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
@@ -459,10 +631,11 @@ Dr. Wessam Gouda) </h1>
 </div>
 
 <script>
+    // Video modal functionality (same as before)
     const modal = document.getElementById('videoModal');
     const modalVideo = document.getElementById('modalVideo');
     const closeSpan = document.querySelector('.close-modal');
-    const allButtons = document.querySelectorAll('.btn-solution');
+    const allVideoButtons = document.querySelectorAll('.btn-solution');
 
     function openModal(videoPath) {
         modalVideo.querySelector('source').src = videoPath;
@@ -478,7 +651,7 @@ Dr. Wessam Gouda) </h1>
         modalVideo.load();
     }
 
-    allButtons.forEach(btn => {
+    allVideoButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const videoFile = btn.getAttribute('data-video');
             if (videoFile) {
@@ -495,6 +668,52 @@ Dr. Wessam Gouda) </h1>
     });
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+    });
+
+    // ---------- Interactive MCQ checking (only for Question 1) ----------
+    const interactiveDivs = document.querySelectorAll('.interactive-area');
+    interactiveDivs.forEach(div => {
+        const btn = div.querySelector('.check-btn');
+        const radios = div.querySelectorAll('input[type="radio"]');
+        const feedbackSpan = div.querySelector('.feedback');
+        const correctAnswer = div.getAttribute('data-correct'); // e.g., "B"
+
+        btn.addEventListener('click', () => {
+            let selectedValue = null;
+            for (let radio of radios) {
+                if (radio.checked) {
+                    selectedValue = radio.value;
+                    break;
+                }
+            }
+            if (!selectedValue) {
+                feedbackSpan.textContent = "Please select an answer first.";
+                feedbackSpan.className = "feedback wrong";
+                return;
+            }
+
+            if (selectedValue === correctAnswer) {
+                feedbackSpan.textContent = "✓ Correct! Well done.";
+                feedbackSpan.className = "feedback correct";
+                // Optional: highlight video button
+                const parentCard = div.closest('.question-card');
+                const videoBtn = parentCard.querySelector('.btn-solution');
+                if (videoBtn) {
+                    videoBtn.classList.add('highlight-video');
+                    setTimeout(() => videoBtn.classList.remove('highlight-video'), 1000);
+                }
+            } else {
+                feedbackSpan.textContent = "✗ Incorrect. Please watch the video solution to understand.";
+                feedbackSpan.className = "feedback wrong";
+                // Highlight video button to encourage watching
+                const parentCard = div.closest('.question-card');
+                const videoBtn = parentCard.querySelector('.btn-solution');
+                if (videoBtn) {
+                    videoBtn.classList.add('highlight-video');
+                    setTimeout(() => videoBtn.classList.remove('highlight-video'), 1500);
+                }
+            }
+        });
     });
 </script>
 </body>
