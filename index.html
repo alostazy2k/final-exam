@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Final Exam - Mathematics I (Video Solutions)</title>
+    <title>Interactive Final Exam 1447 (S1) - Mathematics 101 | Dr. Wessam Gouda</title>
     
-    <!-- MathJax for LaTeX rendering -->
+    <!-- Google Fonts & MathJax -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
     <script>
         MathJax = {
@@ -25,148 +26,190 @@
         }
 
         body {
-            background: linear-gradient(145deg, #1e2a3a 0%, #0f1724 100%);
-            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
-            padding: 30px 20px;
-            color: #f0f3f8;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0b1a2e, #030712);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 20%, rgba(0, 255, 255, 0.08), transparent 60%),
+                        radial-gradient(circle at 20% 80%, rgba(255, 140, 0, 0.08), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .exam-container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(2px);
-            border-radius: 48px;
-            box-shadow: 0 25px 45px rgba(0,0,0,0.3);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.15);
+            position: relative;
+            z-index: 2;
         }
 
+        /* Glassmorphism header */
         .exam-header {
-            background: #0a1927;
-            padding: 30px 25px;
+            background: rgba(10, 25, 39, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 30px 35px;
             text-align: center;
-            border-bottom: 1px solid #2c4c3e;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .exam-header:hover {
+            transform: translateY(-4px);
         }
 
         .exam-header h1 {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #f9d976, #f39f86);
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #FFD966, #FF9F4A, #FF6A3D);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .exam-header p {
-            color: #b9d8c1;
+            color: #cbd5e6;
+            font-weight: 500;
             font-size: 1rem;
         }
 
+        .prepared-by {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #f0b27a;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
         .questions-grid {
-            padding: 30px 25px;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 28px;
         }
 
         .question-card {
-            background: #1f2e3b;
-            border-radius: 28px;
-            padding: 20px 25px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            border: 1px solid #2e4a3e;
-            text-align: left;
-            direction: ltr;
+            background: rgba(25, 40, 55, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 24px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         .question-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            background: #263b4a;
+            transform: translateY(-6px) scale(1.005);
+            box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 140, 66, 0.4);
+            background: rgba(30, 50, 68, 0.7);
         }
 
         .question-text {
             font-size: 1.05rem;
             font-weight: 500;
-            margin-bottom: 18px;
-            line-height: 1.6;
-            padding-left: 10px;
-            border-left: 5px solid #f39f86;
+            margin-bottom: 20px;
+            line-height: 1.55;
+            padding-left: 14px;
+            border-left: 5px solid #ff8c42;
+            color: #f0f3fa;
         }
 
         .question-text ol, .question-text ul {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            padding-left: 25px;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            padding-left: 28px;
         }
 
         .question-text li {
-            margin-bottom: 25px;  /* increased to fit radio buttons and feedback */
-        }
-
-        .interactive-area {
-            margin-top: 10px;
-            margin-left: 25px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 15px;
+            margin-bottom: 22px;
         }
 
         .options {
             display: flex;
             gap: 20px;
-            background: rgba(0,0,0,0.3);
-            padding: 8px 15px;
-            border-radius: 40px;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(4px);
+            padding: 8px 20px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .options label {
             cursor: pointer;
-            font-weight: bold;
-            color: #cfead8;
+            font-weight: 600;
+            color: #e2e8f0;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
         }
 
         .options input {
-            margin-right: 5px;
-            transform: scale(1.1);
+            accent-color: #ff8c42;
+            width: 18px;
+            height: 18px;
             cursor: pointer;
+        }
+
+        .options label:hover {
+            color: #ffb77c;
+            transform: scale(1.02);
         }
 
         .check-btn {
-            background: #2c4c3e;
+            background: linear-gradient(110deg, #2c5a48, #1f3e32);
             border: none;
-            padding: 6px 18px;
+            padding: 8px 24px;
             border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
             color: white;
-            font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
         }
 
         .check-btn:hover {
-            background: #3e6b57;
+            transform: scale(1.03);
+            background: linear-gradient(110deg, #3d7a62, #2b5946);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
         }
 
         .feedback {
-            margin-left: 10px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            padding: 5px 12px;
-            border-radius: 20px;
-            display: inline-block;
+            margin-left: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
         }
 
         .feedback.correct {
-            background: #2e7d64;
-            color: #c8f0e4;
+            background: rgba(46, 125, 100, 0.9);
+            color: #d9f2e8;
+            border-left: 4px solid #6fe3b0;
         }
 
         .feedback.wrong {
-            background: #b33939;
-            color: #ffd6d6;
+            background: rgba(179, 57, 57, 0.9);
+            color: #ffe0e0;
+            border-left: 4px solid #ff8a7a;
         }
 
         .question-meta {
@@ -174,97 +217,101 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed #2e4a3e;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(255,255,255,0.15);
         }
 
         .question-number {
-            background: #2c4c3e;
-            padding: 5px 15px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            padding: 5px 16px;
             border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: #cfead8;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #cddfd4;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .btn-solution {
-            background: linear-gradient(95deg, #ff8c42, #ff3c00);
+            background: linear-gradient(95deg, #ff6a3d, #e6451c);
             border: none;
-            padding: 8px 20px;
+            padding: 9px 26px;
             border-radius: 50px;
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 700;
             color: white;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.3);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .btn-solution:hover {
             transform: scale(1.02);
-            background: linear-gradient(95deg, #ffa052, #ff5e1a);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+            background: linear-gradient(95deg, #ff814e, #f55628);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
         .highlight-video {
-            animation: pulse 0.6s ease-in-out 2;
+            animation: pulse 0.5s ease-in-out 2;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); background: linear-gradient(95deg, #ff8c42, #ff3c00);}
-            50% { transform: scale(1.05); background: #ffaa66; box-shadow: 0 0 10px #ffaa66;}
+            50% { transform: scale(1.07); background: #ff9955; box-shadow: 0 0 15px #ffaa66;}
             100% { transform: scale(1); background: linear-gradient(95deg, #ff8c42, #ff3c00);}
         }
 
         footer {
             text-align: center;
+            margin-top: 35px;
             padding: 20px;
-            font-size: 0.8rem;
-            background: #0a121c;
-            color: #7f8c8d;
-            border-top: 1px solid #2a3e36;
+            font-size: 0.9rem;
+            background: rgba(10, 18, 28, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+            color: #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Modal styles unchanged */
+        .footer-name {
+            font-weight: 700;
+            color: #ffb347;
+            letter-spacing: 1px;
+        }
+
         .modal {
             display: none;
             position: fixed;
-            z-index: 2000;
+            z-index: 3000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(15px);
             align-items: center;
             justify-content: center;
         }
 
         .modal-content {
-            background: #000;
+            background: #000000cc;
+            border-radius: 32px;
             width: 85%;
-            max-width: 800px;
-            border-radius: 24px;
+            max-width: 900px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            animation: fadeInScale 0.25s ease;
-            position: relative;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 140, 66, 0.5);
+            animation: modalFadeIn 0.25s ease;
         }
 
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .video-container {
@@ -287,42 +334,42 @@
             top: 12px;
             right: 20px;
             color: white;
-            font-size: 34px;
+            font-size: 36px;
             font-weight: bold;
-            background: rgba(0,0,0,0.6);
-            width: 40px;
-            height: 40px;
+            background: rgba(0,0,0,0.7);
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: 0.2s;
-            z-index: 10;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(6px);
         }
 
         .close-modal:hover {
             background: #e63946;
-            transform: scale(1.05);
+            transform: rotate(90deg);
         }
 
         @media (max-width: 680px) {
             .question-text {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
             }
             .btn-solution {
                 padding: 6px 16px;
                 font-size: 0.75rem;
             }
             .exam-header h1 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
             .modal-content {
                 width: 95%;
             }
             .options {
-                gap: 10px;
+                gap: 12px;
+                padding: 6px 14px;
                 flex-wrap: wrap;
             }
         }
@@ -332,8 +379,11 @@
 
 <div class="exam-container">
     <div class="exam-header">
-        <h1>Final Exam 1447 (S1) - Mathematics 101</h1>
-        <p>Choose your answer for each MCQ, then click "Check". If wrong, watch the video solution.</p>
+        <h1>📘 Final Exam 1447 (S1) - Mathematics 101</h1>
+        <p>✨ Choose your answer, click <strong>"Check Answer"</strong> – if wrong, watch the video solution ✨</p>
+        <div class="prepared-by">
+            ⚡ Prepared by <strong style="color:#FFB347;">Dr. Wessam Gouda</strong> ⚡
+        </div>
     </div>
 
     <div class="questions-grid">
@@ -343,7 +393,6 @@
             <div class="question-text tex2jax_process">
                 <strong>Question 1: Choose the only correct answer from the following:</strong>
                 <ol id="mcq-list">
-                    <!-- سؤال 1 -->
                     <li>
                         The solution set of the inequality \( 4x + 3 < 11 \) is:
                         <ol type="A">
@@ -363,7 +412,6 @@
                             <span class="feedback"></span>
                         </div>
                     </li>
-                    <!-- سؤال 2 -->
                     <li>
                         Given \( f(x) = 4x + 10 \) and \( g(x) = \sqrt{x+2} \), find \( a \) such that \( f(g(a)) = 10 \):
                         <ol type="A">
@@ -383,7 +431,6 @@
                             <span class="feedback"></span>
                         </div>
                     </li>
-                    <!-- سؤال 3 -->
                     <li>
                         Given \( \displaystyle \lim_{x\to1} \frac{ax^2+bx-5}{x-1}=7 \), the values of \( a,b \):
                         <ol type="A">
@@ -403,7 +450,6 @@
                             <span class="feedback"></span>
                         </div>
                     </li>
-                    <!-- سؤال 4 -->
                     <li>
                         If \( \sin(xy)=\frac12 \), then \( \frac{dx}{dy} = \):
                         <ol type="A">
@@ -423,7 +469,6 @@
                             <span class="feedback"></span>
                         </div>
                     </li>
-                    <!-- سؤال 5 -->
                     <li>
                         If \( y = -\frac{1}{2x} \), then \( y'' = \):
                         <ol type="A">
@@ -443,7 +488,6 @@
                             <span class="feedback"></span>
                         </div>
                     </li>
-                    <!-- سؤال 6 -->
                     <li>
                         Let \( f(x)=x^3-3x \). How many critical numbers?
                         <ol type="A">
@@ -463,7 +507,6 @@
                             <span class="feedback"></span>
                         </div>
                     </li>
-                    <!-- سؤال 7 -->
                     <li>
                         The absolute maximum of \( f(x)=x^2+2 \) on \( [-1,2] \) is:
                         <ol type="A">
@@ -483,7 +526,6 @@
                             <span class="feedback"></span>
                         </div>
                     </li>
-                    <!-- سؤال 8 -->
                     <li>
                         If \( y = \sin^{-1}(2x) \), then \( \frac{dy}{dx} = \):
                         <ol type="A">
@@ -506,118 +548,103 @@
                 </ol>
             </div>
             <div class="question-meta">
-                <span class="question-number">Multiple Choice Questions (1–8)</span>
-                <div>
-                    <button class="btn-solution" data-video="videos/q1.mp4">🎥 Watch Full Solutions (Q1)</button>
-                </div>
+                <span class="question-number">🎯 Multiple Choice (1–8)</span>
+                <button class="btn-solution" data-video="videos/q1.mp4">🎥 Watch Full Solutions (Q1)</button>
             </div>
         </div>
 
-        <!-- ======================= Question 2 (unchanged) ======================= -->
+        <!-- ======================= Question 2 ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
                 <strong>Question 2:</strong>
                 <ol type="A">
-                    <li>Determine whether the function \( f(x) = 5 + (2 - x)^{1/7} \) is one-to-one.</li>
+                    <li>Determine whether \( f(x) = 5 + (2 - x)^{1/7} \) is one-to-one.</li>
                     <li>Given \( \tan 68^\circ = \frac{5}{2} \), find \( \tan 23^\circ \).</li>
-                    <li>Use the Intermediate Value Theorem to show that \( f(x) = x^3 - 5x + 2 \) has a zero in \( [0,1] \).</li>
+                    <li>Use IVT to show \( f(x)=x^3-5x+2 \) has a zero in \( [0,1] \).</li>
                 </ol>
             </div>
             <div class="question-meta">
-                <span class="question-number">Long Answer Question (2)</span>
-                <button class="btn-solution" data-video="videos/q2.mp4">🎥 Watch Full Solution (Q2)</button>
+                <span class="question-number">📝 Long Answer (2)</span>
+                <button class="btn-solution" data-video="videos/q2.mp4">🎥 Watch Solution (Q2)</button>
             </div>
         </div>
 
-        <!-- ======================= Question 3 (unchanged) ======================= -->
+        <!-- ======================= Question 3 ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
-                <strong>Question 3: Evaluate each of the following limits (if exist)</strong>
+                <strong>Question 3: Limits</strong>
                 <ol>
-                    <li>\( \displaystyle \lim_{x \to 0} \frac{1 - \cos {\pi}}{\pi} \)</li>
+                    <li>\( \displaystyle \lim_{x \to 0} \frac{1 - \cos \pi}{\pi} \)</li>
                     <li>\( \displaystyle \lim_{x \to 0} \frac{(3+x)^2 - 9}{x} \)</li>
                     <li>\( \displaystyle \lim_{x \to 1} \frac{1-x}{\sqrt{x}-1} \)</li>
                     <li>\( \displaystyle \lim_{x \to 0} \frac{x - \cos x + 1}{2x + \sin x} \)</li>
-                    <li>\( \displaystyle \lim_{x \to +\infty} \frac{x^4 - 2x^5 + x - 1}{x^4 - 3x + x^5 - 2} \)</li>
-                    <li>\( \displaystyle \lim_{x \to +\infty} \frac{\sin(x^2 + 1)}{x^2} \)</li>
+                    <li>\( \displaystyle \lim_{x \to \infty} \frac{x^4 - 2x^5 + x - 1}{x^4 - 3x + x^5 - 2} \)</li>
+                    <li>\( \displaystyle \lim_{x \to \infty} \frac{\sin(x^2+1)}{x^2} \)</li>
                 </ol>
             </div>
             <div class="question-meta">
-                <span class="question-number">Limits (6 parts)</span>
+                <span class="question-number">📐 Limits (6 parts)</span>
                 <button class="btn-solution" data-video="videos/q3.mp4">🎥 Watch Solutions (Q3)</button>
             </div>
         </div>
 
-        <!-- ======================= Question 4 (unchanged) ======================= -->
+        <!-- ======================= Question 4 ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
                 <strong>Question 4:</strong>
                 <ol type="A">
-                    <li>Find \( a,b \) such that \( f(x) = \begin{cases} ax^3, & x\le 2 \\ x^2+b, & x>2 \end{cases} \) is differentiable at \( x=2 \).</li>
-                    <li>Find the equation of the tangent line to \( y = 2x^2 - x \) at \( x=1 \).</li>
-                    <li>The position of a particle is \( s(t) = 2t^4 - 3t^2 + 2 \).<br>
-                        1) Velocity after 2 seconds.<br>
-                        2) Acceleration after 3 seconds.</li>
+                    <li>Find \( a,b \) for differentiability at \( x=2 \): \( f(x)=\begin{cases} ax^3, x\le2 \\ x^2+b, x>2 \end{cases} \)</li>
+                    <li>Tangent line to \( y=2x^2-x \) at \( x=1 \).</li>
+                    <li>Particle: \( s(t)=2t^4-3t^2+2 \); velocity at \( t=2 \), acceleration at \( t=3 \).</li>
                 </ol>
             </div>
             <div class="question-meta">
-                <span class="question-number">Differentiability, Tangent, Motion</span>
+                <span class="question-number">🚀 Differentiability, Tangent, Motion</span>
                 <button class="btn-solution" data-video="videos/q4.mp4">🎥 Watch Solutions (Q4)</button>
             </div>
         </div>
 
-        <!-- ======================= Question 5 (unchanged) ======================= -->
+        <!-- ======================= Question 5 ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
                 <strong>Question 5:</strong>
                 <ol type="A">
-                    <li>Apply Rolle's Theorem to \( f(x) = x + \frac{4}{x} \) on \( [1,4] \) and find \( c \) such that \( f'(c)=0 \).</li>
-                    <li>Find \( \frac{dy}{dx} \) for:
-                        <ol type="1">
-                            <li>\( y = 4x^5 + 8x + \sqrt{5} \)</li>
-                            <li>\( \frac{1}{y} + \frac{1}{x} = 6 \)</li>
-                            <li>\( y = \sqrt{x + x^2} \)</li>
-                            <li>\( y = \cos(x \sin x) \)</li>
-                        </ol>
+                    <li>Rolle's Theorem on \( f(x)=x+4/x \) on \([1,4]\), find \( c \).</li>
+                    <li>\( \frac{dy}{dx} \) for:
+                        <ol><li>\( y=4x^5+8x+\sqrt5 \)</li><li>\( 1/y+1/x=6 \)</li><li>\( y=\sqrt{x+x^2} \)</li><li>\( y=\cos(x\sin x) \)</li></ol>
                     </li>
-                    <li>Given \( 2\cos^2(xy) = 1 \), find \( y' \).</li>
+                    <li>Given \( 2\cos^2(xy)=1 \), find \( y' \).</li>
                 </ol>
             </div>
             <div class="question-meta">
-                <span class="question-number">Rolle, Derivatives, Implicit</span>
+                <span class="question-number">📈 Rolle, Derivatives, Implicit</span>
                 <button class="btn-solution" data-video="videos/q5.mp4">🎥 Watch Solutions (Q5)</button>
             </div>
         </div>
 
-        <!-- ======================= Question 6 (unchanged) ======================= -->
+        <!-- ======================= Question 6 ======================= -->
         <div class="question-card">
             <div class="question-text tex2jax_process">
-                <strong>Question 6: For \( f(x) = \frac{x+1}{x+2} \) find the following:</strong>
+                <strong>Question 6: Curve sketching \( f(x)=\frac{x+1}{x+2} \)</strong>
                 <ol>
-                    <li>\( x \)-intercept and \( y \)-intercept.</li>
-                    <li>Horizontal and vertical asymptotes.</li>
-                    <li>Critical numbers.</li>
-                    <li>Intervals of increase/decrease.</li>
-                    <li>Local extrema.</li>
-                    <li>Intervals of concavity.</li>
-                    <li>Inflection points.</li>
-                    <li>Sketch the curve.</li>
+                    <li>Intercepts</li><li>Asymptotes</li><li>Critical numbers</li>
+                    <li>Increase/Decrease</li><li>Local extrema</li><li>Concavity</li>
+                    <li>Inflection points</li><li>Sketch</li>
                 </ol>
             </div>
             <div class="question-meta">
-                <span class="question-number">Curve Sketching (8 parts)</span>
+                <span class="question-number">📊 Curve Analysis</span>
                 <button class="btn-solution" data-video="videos/q6.mp4">🎥 Watch Full Analysis (Q6)</button>
             </div>
         </div>
-
     </div>
 
     <footer>
-        Prepared by Dr. Wessam Gouda &nbsp;|&nbsp; Click any button to view video solution.
+        🎓 <span class="footer-name">Dr. Wessam Gouda</span> | Faculty of Science, Mathematics Department 🎓
     </footer>
 </div>
 
-<!-- Video Modal (unchanged) -->
+<!-- Video Modal -->
 <div id="videoModal" class="modal">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
@@ -631,7 +658,7 @@
 </div>
 
 <script>
-    // Video modal functionality (same as before)
+    // Video modal functionality
     const modal = document.getElementById('videoModal');
     const modalVideo = document.getElementById('modalVideo');
     const closeSpan = document.querySelector('.close-modal');
@@ -670,13 +697,13 @@
         if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
     });
 
-    // ---------- Interactive MCQ checking (only for Question 1) ----------
+    // Interactive MCQ checking
     const interactiveDivs = document.querySelectorAll('.interactive-area');
     interactiveDivs.forEach(div => {
         const btn = div.querySelector('.check-btn');
         const radios = div.querySelectorAll('input[type="radio"]');
         const feedbackSpan = div.querySelector('.feedback');
-        const correctAnswer = div.getAttribute('data-correct'); // e.g., "B"
+        const correctAnswer = div.getAttribute('data-correct');
 
         btn.addEventListener('click', () => {
             let selectedValue = null;
@@ -687,15 +714,14 @@
                 }
             }
             if (!selectedValue) {
-                feedbackSpan.textContent = "Please select an answer first.";
+                feedbackSpan.textContent = "⚠️ Please select an answer first.";
                 feedbackSpan.className = "feedback wrong";
                 return;
             }
 
             if (selectedValue === correctAnswer) {
-                feedbackSpan.textContent = "✓ Correct! Well done.";
+                feedbackSpan.textContent = "✅ Correct! Well done.";
                 feedbackSpan.className = "feedback correct";
-                // Optional: highlight video button
                 const parentCard = div.closest('.question-card');
                 const videoBtn = parentCard.querySelector('.btn-solution');
                 if (videoBtn) {
@@ -703,9 +729,8 @@
                     setTimeout(() => videoBtn.classList.remove('highlight-video'), 1000);
                 }
             } else {
-                feedbackSpan.textContent = "✗ Incorrect. Please watch the video solution to understand.";
+                feedbackSpan.textContent = "❌ Incorrect. Watch the video solution to understand.";
                 feedbackSpan.className = "feedback wrong";
-                // Highlight video button to encourage watching
                 const parentCard = div.closest('.question-card');
                 const videoBtn = parentCard.querySelector('.btn-solution');
                 if (videoBtn) {
