@@ -52,6 +52,12 @@
             margin: 0 auto;
             position: relative;
             z-index: 2;
+            transition: opacity 0.5s ease;
+        }
+
+        .exam-container.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         /* Glassmorphism header */
@@ -284,6 +290,70 @@
             letter-spacing: 1px;
         }
 
+        /* Intro Modal */
+        .intro-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .intro-modal-content {
+            width: 80%;
+            max-width: 900px;
+            background: #000;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.6);
+            border: 2px solid rgba(255, 140, 66, 0.6);
+        }
+
+        .intro-video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .intro-video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+        }
+
+        .skip-intro {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            backdrop-filter: blur(4px);
+            transition: 0.2s;
+            z-index: 10;
+        }
+
+        .skip-intro:hover {
+            background: #e63946;
+            transform: scale(1.02);
+        }
+
+        /* Video Modal for solutions */
         .modal {
             display: none;
             position: fixed;
@@ -364,7 +434,7 @@
             .exam-header h1 {
                 font-size: 1.4rem;
             }
-            .modal-content {
+            .intro-modal-content {
                 width: 95%;
             }
             .options {
@@ -377,7 +447,21 @@
 </head>
 <body>
 
-<div class="exam-container">
+<!-- Intro Modal -->
+<div id="introModal" class="intro-modal">
+    <div class="intro-modal-content">
+        <div class="intro-video-container">
+            <video id="introVideo" autoplay muted preload="auto">
+                <source src="videos/intro.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <button class="skip-intro" id="skipIntroBtn">⏩ Skip Intro</button>
+    </div>
+</div>
+
+<!-- Exam Container (hidden initially) -->
+<div class="exam-container hidden" id="examContainer">
     <div class="exam-header">
         <h1>📘 Final Exam 1447 (S1) - Mathematics 101</h1>
         <p>✨ Choose your answer, click <strong>"Check Answer"</strong> – if wrong, watch the video solution ✨</p>
@@ -640,11 +724,11 @@
     </div>
 
     <footer>
-        🎓 <span class="footer-name">Dr. Wessam Gouda</span> | Mathematics Department 🎓
+        🎓 <span class="footer-name">Dr. Wessam Gouda</span> | Faculty of Science, Mathematics Department 🎓
     </footer>
 </div>
 
-<!-- Video Modal -->
+<!-- Video Modal for solutions -->
 <div id="videoModal" class="modal">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
@@ -658,7 +742,26 @@
 </div>
 
 <script>
-    // Video modal functionality
+    // Intro handling
+    const introModal = document.getElementById('introModal');
+    const introVideo = document.getElementById('introVideo');
+    const examContainer = document.getElementById('examContainer');
+    const skipBtn = document.getElementById('skipIntroBtn');
+
+    function closeIntroAndShowExam() {
+        introModal.style.opacity = '0';
+        setTimeout(() => {
+            introModal.style.display = 'none';
+            examContainer.classList.remove('hidden');
+        }, 500);
+        introVideo.pause();
+    }
+
+    introVideo.addEventListener('ended', closeIntroAndShowExam);
+    skipBtn.addEventListener('click', closeIntroAndShowExam);
+    introVideo.play().catch(e => console.log("Autoplay prevented, user can skip"));
+
+    // Video modal functionality for solutions
     const modal = document.getElementById('videoModal');
     const modalVideo = document.getElementById('modalVideo');
     const closeSpan = document.querySelector('.close-modal');
