@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Interactive Final Exam 1447 (S1) - Mathematics 101 | Dr. Wessam Gouda</title>
     
     <!-- Google Fonts & MathJax -->
@@ -290,7 +290,7 @@
             letter-spacing: 1px;
         }
 
-        /* Intro Modal */
+        /* Intro Modal with Skeleton Loader */
         .intro-modal {
             position: fixed;
             top: 0;
@@ -314,12 +314,32 @@
             overflow: hidden;
             box-shadow: 0 30px 50px rgba(0,0,0,0.6);
             border: 2px solid rgba(255, 140, 66, 0.6);
+            position: relative;
         }
 
         .intro-video-container {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
+            background: #1a1a1a;
+        }
+        
+        /* Skeleton loader animation */
+        .skeleton-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            z-index: 5;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         .intro-video-container video {
@@ -329,6 +349,14 @@
             width: 100%;
             height: 100%;
             outline: none;
+            object-fit: contain;
+            background: black;
+            z-index: 10;
+        }
+        
+        /* Hide skeleton when video starts playing */
+        .intro-video-container video.loaded + .skeleton-loader {
+            display: none;
         }
 
         .skip-intro {
@@ -345,7 +373,7 @@
             font-size: 0.9rem;
             backdrop-filter: blur(4px);
             transition: 0.2s;
-            z-index: 10;
+            z-index: 20;
         }
 
         .skip-intro:hover {
@@ -388,6 +416,7 @@
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
+            background: #000;
         }
 
         .video-container video {
@@ -397,6 +426,7 @@
             width: 100%;
             height: 100%;
             outline: none;
+            object-fit: contain;
         }
 
         .close-modal {
@@ -416,6 +446,7 @@
             cursor: pointer;
             transition: 0.2s;
             backdrop-filter: blur(6px);
+            z-index: 10;
         }
 
         .close-modal:hover {
@@ -451,10 +482,12 @@
 <div id="introModal" class="intro-modal">
     <div class="intro-modal-content">
         <div class="intro-video-container">
-            <video id="introVideo" autoplay muted preload="auto">
+            <!-- Video element with preload="none", loading="lazy", and poster placeholder -->
+            <video id="introVideo" autoplay muted preload="none" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23666' font-size='24' font-family='Arial'%3ELoading...%3C/text%3E%3C/svg%3E">
                 <source src="videos/intro.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+            <div class="skeleton-loader"></div>
         </div>
         <button class="skip-intro" id="skipIntroBtn">⏩ Skip Intro</button>
     </div>
@@ -733,7 +766,8 @@
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <div class="video-container">
-            <video id="modalVideo" controls preload="metadata">
+            <!-- Video element with preload="none" and loading="lazy" -->
+            <video id="modalVideo" controls preload="none" loading="lazy" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23666' font-size='24' font-family='Arial'%3ELoading...%3C/text%3E%3C/svg%3E">
                 <source src="" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -747,6 +781,7 @@
     const introVideo = document.getElementById('introVideo');
     const examContainer = document.getElementById('examContainer');
     const skipBtn = document.getElementById('skipIntroBtn');
+    const skeletonLoader = document.querySelector('.skeleton-loader');
 
     function closeIntroAndShowExam() {
         introModal.style.opacity = '0';
@@ -755,19 +790,32 @@
             examContainer.classList.remove('hidden');
         }, 500);
         introVideo.pause();
+        // Clear src to release memory
+        introVideo.src = '';
+        introVideo.load();
     }
 
+    // Remove skeleton when video starts playing
+    introVideo.addEventListener('playing', () => {
+        if (skeletonLoader) skeletonLoader.style.display = 'none';
+    });
     introVideo.addEventListener('ended', closeIntroAndShowExam);
     skipBtn.addEventListener('click', closeIntroAndShowExam);
-    introVideo.play().catch(e => console.log("Autoplay prevented, user can skip"));
+    
+    // Start playing video (autoplay with mute is allowed)
+    introVideo.play().catch(e => {
+        console.log("Autoplay prevented, user can skip");
+        // Optionally remove skeleton and show a play button overlay? Not needed.
+    });
 
-    // Video modal functionality for solutions
+    // Video modal functionality for solutions (optimized)
     const modal = document.getElementById('videoModal');
     const modalVideo = document.getElementById('modalVideo');
     const closeSpan = document.querySelector('.close-modal');
     const allVideoButtons = document.querySelectorAll('.btn-solution');
 
     function openModal(videoPath) {
+        // Set source only when modal is opened
         modalVideo.querySelector('source').src = videoPath;
         modalVideo.load();
         modal.style.display = 'flex';
@@ -777,6 +825,7 @@
     function closeModal() {
         modal.style.display = 'none';
         modalVideo.pause();
+        // Clear source to release memory and stop downloading
         modalVideo.querySelector('source').src = '';
         modalVideo.load();
     }
